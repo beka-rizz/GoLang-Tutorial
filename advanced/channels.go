@@ -8,7 +8,7 @@ import (
 // var := make(chan Type)
 // Channels are blocking
 
-func main() {
+func Channels() {
 	greeting := make(chan string)
 	greetString := "Hello"
 
