@@ -9,7 +9,7 @@ import (
 // Goroutines do not stop the program flow and are non blocking
 // Goroutines run independently and concurrently
 
-func main() {
+func Rungo() {
 	var err error
 	fmt.Println("Beginning program.")
 	go sayHello()
