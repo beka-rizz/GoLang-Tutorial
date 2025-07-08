@@ -1,4 +1,4 @@
-package main
+package simpleapi
 
 import (
 	"crypto/tls"
@@ -9,7 +9,7 @@ import (
 	"golang.org/x/net/http2"
 )
 
-func main() {
+func Run_api() {
 
 	http.HandleFunc("/orders", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Handling incoming orders")
