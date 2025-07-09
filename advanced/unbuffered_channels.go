@@ -12,27 +12,28 @@ import (
 
 // Receiver channel blocks the code until it receives a value
 
-func UnbufferedRun() {
-	ch := make(chan int)
-	go func() {
-		// ch <- 1
-		time.Sleep(2 * time.Second)
-		fmt.Println("2 second goroutine finished")
-	}()
-	go func() {
-		// ch <- 1
-		time.Sleep(3 * time.Second)
-		fmt.Println("3 second goroutine finished")
-	}()
+func main() {
+	// ch := make(chan int)
+	// go func() {
+	// 	// ch <- 1
+	// 	time.Sleep(2 * time.Second)
+	// 	fmt.Println("2 second goroutine finished")
+	// }()
+	// go func() {
+	// 	// ch <- 1
+	// 	time.Sleep(3 * time.Second)
+	// 	fmt.Println("3 second goroutine finished")
+	// }()
 
-	receiver := <-ch
-	fmt.Println(receiver)
-	fmt.Println("End of program")
+	// receiver := <-ch
+	// fmt.Println(receiver)
+	// fmt.Println("End of program")
 
 	// Test1()
 	// Test2()
 	// Test3()
 	// Test4()
+	Test5()
 }
 
 func Test1() {
@@ -46,7 +47,12 @@ func Test1() {
 
 func Test2() { // gives an error, because receiver is not ready
 	ch := make(chan int)
-	ch <- 1 // looks for immediate receiver
+	go func() {
+		fmt.Println("Goroutine before sending started...")
+		time.Sleep(2 * time.Second)
+		fmt.Println("Goroutine before sending finished.")
+	}()
+	ch <- 1 // looks for immediate receiver, blocks here (waits for all goroutines before to be finished)
 	go func() {
 		receiver := <-ch
 		fmt.Println(receiver)
@@ -68,7 +74,7 @@ func Test3() {
 }
 
 func Test4() {
-	ch := make(chan int) 
+	ch := make(chan int)
 	go func() {
 		time.Sleep(3 * time.Second)
 		fmt.Println("3 second goroutine finished")
@@ -79,5 +85,22 @@ func Test4() {
 		fmt.Println("5 second goroutine finished")
 	}()
 	ch <- 1 // blocks here
+	fmt.Println("End of program")
+}
+
+func Test5() {
+	ch := make(chan int)
+	go func() {
+		fmt.Println("Sender goroutine started...")
+		ch <- 1
+		fmt.Println("Sender goroutine finished")
+	}()
+	go func() {
+		fmt.Println("3 second receiver goroutine started...")
+		time.Sleep(3 * time.Second)
+		fmt.Println(<-ch)
+		fmt.Println("3 second receiver goroutine finished")
+	}()
+	time.Sleep(5 * time.Second)
 	fmt.Println("End of program")
 }
