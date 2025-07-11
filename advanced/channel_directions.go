@@ -9,7 +9,7 @@ import (
 
 // We must declare bidirectional channel, and pass it as an argument to the func-s or goroutines
 
-func main() {
+func ChDirectionsRun() {
 	ch := make(chan int)
 
 	Producer(ch)
