@@ -12,7 +12,7 @@ import (
 
 // Receiver channel blocks the code until it receives a value
 
-func main() {
+func UnbufferedRun() {
 	// ch := make(chan int)
 	// go func() {
 	// 	// ch <- 1
