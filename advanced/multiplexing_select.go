@@ -27,8 +27,8 @@ func ChannelCheck() {
 
 	for {
 		select {
-		case msg, isClosed := <-ch:
-			if !isClosed {
+		case msg, isOpen := <-ch:
+			if !isOpen {
 				fmt.Println("Channel closed")
 				// clean up activities
 				return
