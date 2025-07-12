@@ -13,10 +13,6 @@ import (
 // When the channel is closed, select will receive zero value of a channel's type
 // We must handle this scenario via boolean value that comes with received value
 
-func main() {
-	ChannelCheck()
-}
-
 func ChannelCheck() {
 	ch := make(chan int)
 
